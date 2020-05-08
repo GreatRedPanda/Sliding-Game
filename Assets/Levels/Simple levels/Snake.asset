@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22a687b812c52d44eb92e29a7a786de2, type: 3}
+  m_Name: Snake
+  m_EditorClassIdentifier: 
+  ID: 19
+  Name: Snake
+  difficulty: 
+  W: 7
+  H: 7
+  Map: '{
+
+
+    "Array":[0,102,0,0,0,0,10,102,0,102,0,102,102,0,102,0,102,0,102,102,0,102,0,102,0,0,10,102,102,0,0,102,0,0,102,0,102,0,102,0,0,102,0,0,10,0,102,102,10]
+
+    }'
+  MapStoneUpReserve: '{
+
+    "Array":[1,2,0,0,1,2,2]
+
+    }'
+  MapStoneLeftReserve: '{
+
+
+    "Array":[1,0,2,2,2,0,1]
+
+    }'
+  MapColor: "{\r\n\"Array\":[\"FFFFFFFF\",\"919191FF\",\"FFFFFFFF\",\"FFFFFFFF\",\"FFFFFFFF\",\"FFFFFFFF\",\"FFFFFFFF\",\"919191FF\",\"FFFFFFFF\",\"919191FF\",\"FFFFFFFF\",\"919191FF\",\"919191FF\",\"FFFFFFFF\",\"919191FF\",\"FFFFFFFF\",\"919191FF\",\"FFFFFFFF\",\"919191FF\",\"919191FF\",\"FFFFFFFF\",\"919191FF\",\"FFFFFFFF\",\"919191FF\",\"FFFFFFFF\",\"FFFFFFFF\",\"FFFFFFFF\",\"919191FF\",\"919191FF\",\"FFFFFFFF\",\"FFFFFFFF\",\"919191FF\",\"FFFFFFFF\",\"FFFFFFFF\",\"919191FF\",\"FFFFFFFF\",\"919191FF\",\"FFFFFFFF\",\"919191FF\",\"FFFFFFFF\",\"FFFFFFFF\",\"919191FF\",\"FFFFFFFF\",\"FFFFFFFF\",\"FFFFFFFF\",\"FFFFFFFF\",\"919191FF\",\"919191FF\",\"FFFFFFFF\"]\r\n}"
