@@ -8,10 +8,11 @@ using TMPro;
 public class CellContainer: Cell
 {
 
-public    TextMeshProUGUI countText;
-
-
+   public    TextMeshProUGUI countText;
     List<Stone> reserveStone;
+
+
+
     protected override void Start()
     {
         base.Start();
@@ -21,16 +22,7 @@ public    TextMeshProUGUI countText;
         countText.transform.SetAsLastSibling();
     }
 
-    //public int GetReserveCount {
 
-    //    get {
-    //        if (reserveStone == null)
-    //            return 0;
-    //        return reserveStone.Count;
-    //    }
-
-
-    //}
     public override int GetCellStoneCount()
     {
         if (reserveStone == null)
@@ -38,16 +30,6 @@ public    TextMeshProUGUI countText;
         return reserveStone.Count;
     }
 
-    //public void AddReserveStone(Stone st)
-    //{
-
-    //    if (reserveStone == null)
-    //        reserveStone = new List<Stone>();
-    //    else
-    //    st.gameObject.SetActive(false);
-    //    reserveStone.Add(st);
-    //    countText.text = reserveStone.Count.ToString();
-    //}
 
 
     public void GetStoneFromReserve()

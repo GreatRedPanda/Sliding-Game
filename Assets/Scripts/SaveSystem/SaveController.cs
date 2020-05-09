@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
+using System.Runtime.InteropServices;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using UnityEngine;
@@ -27,14 +28,13 @@ public class SaveData
 public class SaveController : MonoBehaviour
 {
 
+    [DllImport("__Internal")]
+    private static extern void SyncFiles();
 
+    [DllImport("__Internal")]
+    private static extern void WindowAlert(string message);
 
     public string FileName = "saves.svs";
-
-
-
-
-
     public static List<SaveData> saves = new List<SaveData>();
 
 
@@ -108,7 +108,7 @@ public class SaveController : MonoBehaviour
         BinaryFormatter bf = new BinaryFormatter();
 
 
-#if !UNITY_WEBGL
+//#if !UNITY_WEBGL
         string path = getFilePath();
         if (File.Exists(path))
         {
@@ -123,20 +123,23 @@ public class SaveController : MonoBehaviour
             file.Close();
         }
 
-#else
-        MemoryStream stream = new MemoryStream();
-        bf.Serialize(stream, saves);
-        string data = System.Convert.ToBase64String(stream.GetBuffer());
-        PlayerPrefs.SetString(FileName, data);
-        PlayerPrefs.Save();
-        Debug.Log(data.Length);
-        //string data = PlayerPrefs.GetString(FileName);
-        //byte[] bytes = Encoding.ASCII.GetBytes(data);
-        //MemoryStream stream = new MemoryStream(bytes);      
-        //List<SaveData> saves1= (List<SaveData>)bf.Deserialize(stream);
-
-
+#if UNITY_WEBGL && !UNITY_EDITOR
+            SyncFiles();
 #endif
+        //#else
+        //        MemoryStream stream = new MemoryStream();
+        //        bf.Serialize(stream, saves);
+        //        string data = System.Convert.ToBase64String(stream.GetBuffer());
+        //        PlayerPrefs.SetString(FileName, data);
+        //        PlayerPrefs.Save();
+
+        //        //string data = PlayerPrefs.GetString(FileName);
+        //        //byte[] bytes = Encoding.ASCII.GetBytes(data);
+        //        //MemoryStream stream = new MemoryStream(bytes);      
+        //        //List<SaveData> saves1= (List<SaveData>)bf.Deserialize(stream);
+
+
+        //#endif
 
     }
 
@@ -147,7 +150,7 @@ public class SaveController : MonoBehaviour
 
    BinaryFormatter bf = new BinaryFormatter();
 
-#if !UNITY_WEBGL
+//#if !UNITY_WEBGL
 
         string path = getFilePath();
         if (File.Exists(path))
@@ -159,23 +162,25 @@ public class SaveController : MonoBehaviour
         }
 
 
-        
-#else
-
-        if (PlayerPrefs.HasKey(FileName))
-        {
-            try { 
-            string data = PlayerPrefs.GetString(FileName);
-             Debug.Log("Loading"+data.Length);
-            byte[] bytes = System.Convert.FromBase64String(data);
-            MemoryStream stream = new MemoryStream(bytes);
-            saves = (List<SaveData>)bf.Deserialize(stream);
-             }
-            catch
-                { }
-        }
-
+#if UNITY_WEBGL && !UNITY_EDITOR
+            SyncFiles();
 #endif
+        //#else
+
+        //        if (PlayerPrefs.HasKey(FileName))
+        //        {
+        //            try { 
+        //            string data = PlayerPrefs.GetString(FileName);
+
+        //            byte[] bytes = System.Convert.FromBase64String(data);
+        //            MemoryStream stream = new MemoryStream(bytes);
+        //            saves = (List<SaveData>)bf.Deserialize(stream);
+        //             }
+        //            catch
+        //            { }
+        //        }
+
+        //#endif
     }
 
 

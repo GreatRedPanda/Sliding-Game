@@ -363,9 +363,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LanguagesFolder: Lang
   languageFiles:
-  - FileName: localizedText_en
+  - JsonText: {fileID: 11400000, guid: 7d02aa5ad9d411341a92b14c01c7008e, type: 2}
     SystemLanguage: 10
-  - FileName: localizedText_ru
+  - JsonText: {fileID: 11400000, guid: dc18803712937c7489dd29e87088850c, type: 2}
     SystemLanguage: 30
   SpecialUIEementsContent:
   - items:
@@ -1044,7 +1044,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 8.199951, y: -13.857971}
+  m_AnchoredPosition: {x: 8.199951, y: -13.858032}
   m_SizeDelta: {x: 33.1, y: 27.716}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &341315117
@@ -4959,7 +4959,7 @@ PrefabInstance:
     - target: {fileID: 2529580244052823874, guid: 912c2946e00a8c648ad229b4f48b48e0,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 14.575989
+      value: 14.57605
       objectReference: {fileID: 0}
     - target: {fileID: 2529580244052823874, guid: 912c2946e00a8c648ad229b4f48b48e0,
         type: 3}
@@ -4970,6 +4970,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8753630785416566034, guid: 912c2946e00a8c648ad229b4f48b48e0,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 2.6999512
+      objectReference: {fileID: 0}
+    - target: {fileID: 8753630785426521777, guid: 912c2946e00a8c648ad229b4f48b48e0,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -6.6999817
+      objectReference: {fileID: 0}
+    - target: {fileID: 8753630786471071509, guid: 912c2946e00a8c648ad229b4f48b48e0,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -6.699951
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 912c2946e00a8c648ad229b4f48b48e0, type: 3}

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.Networking;
 [System.Serializable]
@@ -23,20 +24,29 @@ public class LocalizationItem
 [System.Serializable]
 public class SystemLanguageFile
 {
-    public string FileName;
+    // public string FileName;
+    public LanguageTextJsonContainer JsonText;
     public SystemLanguage SystemLanguage;
 }
 
 
 public class LocalizationManager : MonoBehaviour
 {
+
+    [DllImport("__Internal")]
+    private static extern void SyncFiles();
+
+    [DllImport("__Internal")]
+    private static extern void WindowAlert(string message);
+
+
     static SystemLanguage[] possibleLanguages = new SystemLanguage[] {
         SystemLanguage.English, SystemLanguage.Russian
     };
 
     public int CurrentLanguageIndex { get { return currentLanguage; } }
     public SystemLanguage CurrentLanguage { get { return CurrentSystemLanguage; } }
-    int currentLanguage = 0;
+  
     static SystemLanguage DefaultSystemLanguage = SystemLanguage.English;
     static SystemLanguage CurrentSystemLanguage;
     public static bool LocalTextLoaded = false;
@@ -45,11 +55,10 @@ public class LocalizationManager : MonoBehaviour
 
 
 
-    public string LanguagesFolder = "Lang2";
     public static LocalizationManager Instance;
     public static Dictionary<string, string> LocalUIText = new Dictionary<string, string>();
     public static Dictionary<SystemLanguage, Dictionary<string, string>> LocalUITextDynamic = new Dictionary<SystemLanguage, Dictionary<string, string>>();
-    public static Dictionary<SystemLanguage, string> SystemLanguageFiles = new Dictionary<SystemLanguage, string>();
+    public static Dictionary<SystemLanguage, LanguageTextJsonContainer> SystemLanguageFiles = new Dictionary<SystemLanguage, LanguageTextJsonContainer>();
 
 
     public SystemLanguageFile[] languageFiles;
@@ -57,7 +66,7 @@ public class LocalizationManager : MonoBehaviour
     public LocalizationDataLang[] SpecialUIEementsContent;
    
     bool loadStart = true;
-
+  int currentLanguage = 0;
     private void Awake()
     {
 
@@ -68,7 +77,7 @@ public class LocalizationManager : MonoBehaviour
             for (int i = 0; i < languageFiles.Length; i++)
             {
 
-                SystemLanguageFiles.Add(languageFiles[i].SystemLanguage, languageFiles[i].FileName);
+                SystemLanguageFiles.Add(languageFiles[i].SystemLanguage, languageFiles[i].JsonText);
             }
            
 
@@ -113,11 +122,11 @@ public class LocalizationManager : MonoBehaviour
             CurrentSystemLanguage = DefaultSystemLanguage;
         }
 
-        string fileName = SystemLanguageFiles[DefaultSystemLanguage];
-        if (SystemLanguageFiles.ContainsKey(CurrentSystemLanguage))
-            fileName = SystemLanguageFiles[CurrentSystemLanguage];
-        StartCoroutine(LoadLocalizedText(fileName, currentLanguage, CurrentSystemLanguage));
-
+        LanguageTextJsonContainer textJsonContainer = SystemLanguageFiles[DefaultSystemLanguage];
+               if (SystemLanguageFiles.ContainsKey(CurrentSystemLanguage))
+            textJsonContainer = SystemLanguageFiles[CurrentSystemLanguage];
+            if(textJsonContainer!=null)
+        retrieveLocalizationText(textJsonContainer.JsonText, currentLanguage, CurrentSystemLanguage);
 
     }
     public void SwitchLanguage()
@@ -128,50 +137,17 @@ public class LocalizationManager : MonoBehaviour
             lang = 0;
 
         SystemLanguage language = possibleLanguages[lang];
-
-
-        string fileName = SystemLanguageFiles[DefaultSystemLanguage];
+        LanguageTextJsonContainer textJsonContainer = SystemLanguageFiles[DefaultSystemLanguage];
         if (SystemLanguageFiles.ContainsKey(language))
-        {
-            fileName = SystemLanguageFiles[language];
-        }
-        StartCoroutine(LoadLocalizedText(fileName, lang, language));
-
-
+            textJsonContainer = SystemLanguageFiles[language];
+        if (textJsonContainer != null)
+            retrieveLocalizationText(textJsonContainer.JsonText, lang, language);
     }
 
 
-
-
-
-    IEnumerator LoadLocalizedText(string fileName, int langIndex, SystemLanguage lang)
+    void retrieveLocalizationText(string dataAsJson, int langIndex, SystemLanguage lang)
     {
-
-        LocalUIText = new Dictionary<string, string>();
-        fileName = LanguagesFolder + "/" + fileName + ".json";
-        string filePath = Path.Combine(Application.streamingAssetsPath, fileName);
-
-     
         LocalUIText.Clear();
-
-        string dataAsJson = "";
-
-
-#if UNITY_ANDROID || UNITY_WEBGL
-
-        UnityWebRequest unityWebRequest = UnityWebRequest.Get(filePath);
-        yield return unityWebRequest.SendWebRequest();
-        dataAsJson = unityWebRequest.downloadHandler.text;
-        
-
-#else
-        if (File.Exists(filePath))
-        {
-        dataAsJson = File.ReadAllText(filePath);
-            yield return null;
-        }
-#endif
-      
         if (dataAsJson != "" && dataAsJson != null)
         {
             LocalizationData loadedData = JsonUtility.FromJson<LocalizationData>(dataAsJson);
@@ -179,9 +155,7 @@ public class LocalizationManager : MonoBehaviour
             for (int i = 0; i < loadedData.items.Length; i++)
             {
                 LocalUIText.Add(loadedData.items[i].key, loadedData.items[i].value);
-
             }
-
             LocalTextLoaded = true;
             CurrentSystemLanguage = lang;
             currentLanguage = langIndex;
@@ -193,7 +167,7 @@ public class LocalizationManager : MonoBehaviour
 
         }
 
-        if (OnLocalizedTextLoaded != null)// && LocalTextLoaded
+        if (OnLocalizedTextLoaded != null)
         {
             OnLocalizedTextLoaded();
         }
@@ -205,50 +179,36 @@ public class LocalizationManager : MonoBehaviour
             CurrentSystemLanguage = DefaultSystemLanguage;
         }
 
-
-       
     }
 
 
+    
+
     public string GetLocalizedValue(string uiElementName)
     {
-        // Debug.Log("fsdjnfskdjnflk"+ uiElementName);
         string result = null;
-
         if (LocalUIText.ContainsKey(uiElementName))
         {
             result = LocalUIText[uiElementName];
         }
-
         return result;
 
     }
     public string GetLocalizedSpecialValue(string element)
     {
-      //  Debug.Log(LocalUITextDynamic.Count + "       ☺-☺  " + LocalUITextDynamic.ContainsKey(CurrentLanguage)+"   "+CurrentLanguage);
-        //foreach (var item in LocalUITextDynamic)
-        //{
-        //    foreach (var el in item.Value)
-        //    {
-        //        Debug.Log(el.Key +"     "+el.Value);
-        //    }
-        //}
         string result = null;
         if (LocalUITextDynamic.ContainsKey(CurrentLanguage))
-        {
-     
+        {  
             if (LocalUITextDynamic[CurrentLanguage].ContainsKey(element))
             {
             result = LocalUITextDynamic[CurrentLanguage][element];
             }
         }
         return result;
-
     }
 
     public void ClearUIControllerSubscribes()
     {
-
         OnLocalizedTextLoaded = null;
     }
 

@@ -90,12 +90,10 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
     }
     void Start()
-    {
+    {      
       
-       
        // LoadLevels();
-      
-        
+          
     }
     void loadPrefs()
     {

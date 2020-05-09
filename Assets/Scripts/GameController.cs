@@ -7,8 +7,10 @@ public class GameController : MonoBehaviour
     public event System.Action<int> OnMove;
     public event System.Action<int, int> OnMapChanged;
     public event System.Action<int, int, bool> OnVictory;
-  public event System.Action<int> OnStepMade;
+    public event System.Action<int> OnStepMade;
 
+
+  public static GameController Instance;
 
     public Vector2 Gap;
     public GameObject Parent;
@@ -27,9 +29,9 @@ public class GameController : MonoBehaviour
     Stone SelectedStone;
 
     bool interactable = true;
-    public static GameController Instance;
+  
 
-    Cell[,] map;// p=new Cell[,];
+    Cell[,] map;
 
     Cell[] upReserve;
     Cell[] leftReserve;
@@ -40,6 +42,8 @@ public class GameController : MonoBehaviour
     int currentCellsCount = 0;
 
 
+    SaveController saveController;
+    RecordLevelSave RecordLevelSave;
 
 
     private void Awake()
@@ -48,8 +52,6 @@ public class GameController : MonoBehaviour
             Instance = this;
     }
 
-    SaveController saveController;
-    RecordLevelSave RecordLevelSave;
     private void Start()
     {
 
@@ -399,20 +401,5 @@ public class GameController : MonoBehaviour
         movesCount = 0;
         saveController.DeleteSave(CurrentLevel.ID);
     }
-    //private void OnApplicationPause(bool pause)
-    //{
-    //    if (pause)
-    //    {
-    //        saveController.CreateSave(CurrentLevel.ID, CurrentLevel.Name, map, leftReserve, upReserve);
-    //        //StartCoroutine(saveController.Save());
-    //        saveController.SaveData();
-    //    }
-    //}
 
-    //private void OnApplicationQuit()
-    //{
-    //    saveController.CreateSave(CurrentLevel.ID, CurrentLevel.Name, map, leftReserve, upReserve);
-    //    //StartCoroutine(saveController.Save());
-    //    saveController.SaveData();
-    //}
 }

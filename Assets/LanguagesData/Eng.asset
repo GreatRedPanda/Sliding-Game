@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b42f60060b73702488bde60c19115144, type: 3}
+  m_Name: Eng
+  m_EditorClassIdentifier: 
+  JsonText: " {\r\n\"items\":\r\n\t[\r\n\t{\"key\":\"StartTxt\",\"value\":\"Start\"},\r\n\t{\"key\":\"HowToPlayTxt\",\"value\":\"How
+    to play\"},\r\n\t{\"key\":\"TutorialP1\",\"value\":\"Move all stones to cells
+    with [ ]\"},\r\n\t{\"key\":\"TutorialP2\",\"value\":\"stone moves in a straight
+    line to the first obstacle\"},\r\n\t{\"key\":\"TutorialP3\",\"value\":\"Be careful
+    of pits: as soon as the stone gets there, it cannot be moved\"},\r\n\t{\"key\":\"TutorialP4\",\"value\":\"but
+    if there is already a stone in the pit, then another stone can pass through it\"},\r\n\t{\"key\":\"TutorialP5\",\"value\":\"Containers
+    are not part of the playing field.\\nYou can take stones from there, but you cannot
+    move them there\"},\r\n\t\t{\"key\":\"SettingsTxt\",\"value\":\"Settings\"},\r\n\t{\"key\":\"ShowStoneMoveOff\",\"value\":\"Stone
+    move off\"},\r\n\t{\"key\":\"ShowStoneMoveOn\",\"value\":\"Stone move on\"},\r\n\t{\"key\":\"FastBackStoneMoveOff\",\"value\":\"Stone
+    back move off\"},\r\n\t{\"key\":\"FastBackStoneMoveOn\",\"value\":\"Stone back
+    move on\"},\r\n\t\r\n\t{\"key\":\"MovesCount\",\"value\":\"Moves count\"},\r\n\t{\"key\":\"StonesOnCells\",\"value\":\"Stones/cells\"},\r\n\t{\"key\":\"Language\",\"value\":\"English\"},\r\n\t{\"key\":\"simple\",\"value\":\"Simple
+    levels\"},\r\n\t{\"key\":\"middle\",\"value\":\"Middle levels\"},\r\n\t{\"key\":\"hard\",\"value\":\"Hard
+    levels\"},\r\n\t{\"key\":\"savedLevels\",\"value\":\"Recent levels\"},\r\n\t{\"key\":\"StonesTotal\",\"value\":\"Stones
+    total\"},\r\n\t{\"key\":\"MovesRecord\",\"value\":\"Moves record\"},\r\n    {\"key\":\"WinMovesNewRecord\",\"value\":\"New
+    moves record\"},\r\n\t{\"key\":\"WinMovesCount\",\"value\":\"Your moves\"},\r\n\t{\"key\":\"WinRecord\",\"value\":\"Best
+    moves\"},\r\n\t{\"key\":\"Victory\",\"value\":\"Level complete\"}\r\n\t\r\n\r\n\t\r\n\r\n\r\n\r\n\r\n\t]\r\n\r\n\r\n}"

@@ -38,14 +38,14 @@ public class MainMenuController : UIController
     {
         base.SetLocalization();
 
-        Debug.Log("GETTING NAME ");
+        //Debug.Log("GETTING NAME ");
         if (LevelsPanels.Count!=0)
             SetLevelsLocalization();
     }
     public void SetLevelsLocalization()
     {
         btnsLocalized = true;
-        Debug.Log("GETTING NAME " );
+      //  Debug.Log("GETTING NAME " );
         foreach (var levelsPanel in LevelsPanels)
         {
 
