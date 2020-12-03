@@ -32,13 +32,13 @@ public class SystemLanguageFile
 
 public class LocalizationManager : MonoBehaviour
 {
-
+#if UNITY_WEBGL
     [DllImport("__Internal")]
     private static extern void SyncFiles();
 
     [DllImport("__Internal")]
     private static extern void WindowAlert(string message);
-
+#endif
 
     static SystemLanguage[] possibleLanguages = new SystemLanguage[] {
         SystemLanguage.English, SystemLanguage.Russian

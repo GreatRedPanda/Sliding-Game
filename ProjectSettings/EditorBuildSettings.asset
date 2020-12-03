@@ -9,9 +9,9 @@ EditorBuildSettings:
     path: 
     guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/WebGL/MainMenuWEBGL.unity
-    guid: 4b9eaded8c7f4bb4a8b69c8d9a0b7db8
+    path: Assets/Scenes/Android/MainMenu.unity
+    guid: e831cdc9e46b2cd479ac3cd287b8d303
   - enabled: 1
-    path: Assets/Scenes/WebGL/SampleSceneWEBGL.unity
-    guid: 5ddfb53f277bc934ca0c9f57f3ce050f
+    path: Assets/Scenes/Android/SampleScene.unity
+    guid: 9aecf39664d1c094695efb647e7c5d41
   m_configObjects: {}

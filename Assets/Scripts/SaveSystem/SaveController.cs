@@ -28,12 +28,13 @@ public class SaveData
 public class SaveController : MonoBehaviour
 {
 
+#if UNITY_WEBGL
     [DllImport("__Internal")]
     private static extern void SyncFiles();
 
     [DllImport("__Internal")]
     private static extern void WindowAlert(string message);
-
+#endif
     public string FileName = "saves.svs";
     public static List<SaveData> saves = new List<SaveData>();
 
